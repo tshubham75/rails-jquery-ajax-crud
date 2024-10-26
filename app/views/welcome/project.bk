@@ -1,0 +1,176 @@
+Ruby on Rails MVC Flow
+-----------------------
+
+Client Request:
+----------------
+The client makes a request from the client-side.
+
+Server Receives Request:
+-------------------------
+The server receives that request.
+
+Routing:
+-------------
+The request is sent to the router, which decides which controller action should handle the request.
+Routes determine the appropriate controller based on the HTTP method (e.g., GET, POST, PUT, PATCH, DELETE).
+
+Controller Action:
+------------------
+If the request is for creating or modifying data (e.g., PUT or PATCH), the request is directed to the model.
+
+Model Interaction:
+-------------------
+The model interacts with the database using Active Record ORM to perform the necessary queries (create, update, delete, etc.).
+
+Response Handling:
+--------------------
+After executing the query, the model sends the results back to the controller.
+The controller processes the response and determines the next step:
+If it's a data request, the controller sends a JSON response back to the client.
+If it's a request for a web page, the controller renders the appropriate view.
+
+Client Display:
+-----------------
+The view page is sent to the client, displaying the information in the browser.
+
+==============================================
+
+MVC (Model-View-Controller)
+----------------------------
+MVC is a software architectural pattern that separates an application into three main components:
+
+Model:
+-------------
+Manages data and business logic.
+Performs operations on the database:
+The model sends requests to Active Record.
+Active Record performs the necessary queries or sends commands to the database.
+After processing, the results are sent back to the model.
+The model then sends the response data back to the controller.
+
+View:
+----------
+Displays data to the user.
+Responsible for rendering the user interface (HTML, JSON, etc.).
+
+Controller:
+-----------------
+Handles user input and acts as a mediator between the model and the view.
+Receives requests from the user, processes them (often involving the model), and determines the appropriate response.
+
+Routing
+------------
+The process of mapping incoming requests to specific controller actions.
+Determines which controller and action to invoke based on the URL and HTTP method.
+
+Active Record
+----------------
+An Object-Relational Mapping (ORM) system in Rails that simplifies database interactions.
+Provides methods to create, read, update, and delete database records.
+
+HTTP Methods
+--------------
+GET:
+
+Purpose: Retrieve data.
+Response: Renders an HTML view.
+
+POST:
+
+Purpose: Create new data.
+Response: Returns JSON data indicating the result of the creation.
+
+PUT/PATCH:
+
+Purpose: Update existing data.
+Response: Returns JSON data indicating the result of the update.
+
+DELETE:
+
+Purpose: Remove data.
+Response: Returns JSON data confirming the deletion.
+
+=========================================================
+
+### Scaffolding in Rails
+
+**Scaffolding** in Ruby on Rails is a way to quickly create the basic parts of a web application. It automatically generates everything you need for a specific resource, including:
+
+1. **Model**: This represents your data structure.
+2. **Controller**: This handles user requests and actions.
+3. **Views**: These are the templates used to display data and create forms.
+4. **Migration**: This sets up the database structure for your model.
+
+### How to Use Scaffolding
+
+You can create scaffolding for a resource using a command in the terminal. For example, to create a `Post` model with a `title` and `content`, you would run:
+
+```bash
+rails generate scaffold Post title:string content:text
+```
+IMP note :-Post name must be singular alway remember
+answer bellow:-
++++++++++++++++++++++++++++++++++++++++++
+Why Use a Singular Name in the Scaffold Command?
+When you run the scaffold command, you use a singular name because the command is focused on generating the structure for a single resource type.
+++++++++++++++++++++++++++++++++++++++++++
+
+### Advantages of Scaffolding
+
+1. **Speed**: It helps you build a working application quickly.
+2. **Follows Conventions**: It uses Rails conventions, so you don't have to configure everything from scratch.
+3. **Learning Tool**: It's great for beginners to understand how Rails works.
+4. **Prototyping**: Good for quickly testing ideas.
+
+### Drawbacks of Scaffolding
+
+1. **Generic Code**: The code may be too basic and not fit your specific needs. You might have to change a lot of it later.
+2. **Extra Files**: It can create a lot of unnecessary files for small projects.
+3. **Over-Reliance on Defaults**: You might depend too much on Rails' defaults instead of learning more about the framework.
+4. **Security Issues**: If not modified properly, it can leave your app vulnerable.
+
+### Conclusion
+
+Scaffolding is a helpful tool for fast development and testing, but it's important to customize the generated code to fit your specific project needs.
+
+====================================================
+
+### Rails Migrations
+
+When we create a migration, it outlines the changes we want to make to the database schema. After we run the command `rails db:migrate`, these changes are applied at the database level.
+
+When a migration is created, it automatically includes `t.timestamps` in the migration file. After running `rails db:migrate`, the `t.timestamps` method creates two attributes by default:
+
+created_at: This timestamp shows when the record was created. It helps us know how long a record has been in the database.
+
+updated_at: This timestamp shows when the record was last updated. It helps track changes to the data over time.
+
+Having these timestamps is useful for:
+
+Tracking History: You can see when records were created and modified, which is important for data management.
+
+Data Integrity: It helps maintain accurate records of changes, which can be important for audits or understanding user actions
+
+Both of these attributes are of type `datetime`, and they cannot be null (i.e., they must always have a value).
+
+=====================================================
+
+Naming convention
+
+Models (Singular): Represent a single instance (e.g., one blog post).
+Controllers (Plural): Manage multiple instances (e.g., all blog posts).
+Views (Singular): Display information about a single instance (e.g., details of one blog post).
+
+explain by bellow examples
+
+Model: Book (singular) = Represents one book.
+rails generate model Book title:string author:string
+----------------------------------------------------
+
+Controller: BooksController (plural) = Manages a collection of books.
+rails generate controller Books
+---------------------------------
+
+View: show.html.erb (singular) = Displays details about one book
+
+==============================================
