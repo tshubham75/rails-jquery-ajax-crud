@@ -7,6 +7,7 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import './users'; // Ensure this line is included
 
 Rails.start()
 Turbolinks.start()

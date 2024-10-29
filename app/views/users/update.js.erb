@@ -1,0 +1,9 @@
+// update.js.erb
+<% if @user.errors.any? %>
+  $('#error_explanation').html("<%= j render 'error_messages', user: @user %>");
+<% else %>
+  // On success, you might want to update certain parts of the page
+  alert("User updated successfully!");
+  // Or, redirect
+  window.location.href = "<%= user_path(@user) %>";
+<% end %>

@@ -178,29 +178,106 @@ View: show.html.erb (singular) = Displays details about one book
 ### Rails Validations
 
 1. **Purpose of Validations**:
+
    - Validations ensure that only the correct type of data is inserted into the database.
    - Without validations, it is possible to enter not only incorrect data types but also empty values.
 
 2. **Rails Standards for Validations**:
-   - In Rails, you can apply multiple validation constraints to a single field using a single `validates` call, rather than repeating validations for the same field.
+
+   - In Rails, you can apply multiple validation constraints to a single form-group using a single `validates` call, rather than repeating validations for the same form-group.
    - This approach maintains cleaner code and adheres to Rails conventions.
 
 3. **Writing Validations**:
-   - Instead of writing separate lines for each validation on the same field, combine them into one line. For example:
+
+   - Instead of writing separate lines for each validation on the same form-group, combine them into one line. For example:
      ```ruby
-     validates :field_name, presence: true, numericality: true, length: { maximum: 50 }
+     validates :form-group_name, presence: true, numericality: true, length: { maximum: 50 }
      ```
 
 4. **Validation from the UI**:
+
    - When validations are applied, the user interface will display error messages if incorrect input is provided.
    - This immediate feedback helps guide users to enter valid data.
 
 5. **Validation from the Console**:
+
    - You can test validations in the Rails console by creating a new instance of the model and assigning values to its attributes.
    - Use the `.valid?` method to check if the instance is valid. This method returns `true` if all validations pass and `false` otherwise.
-     ```ruby
+    
      instance = ModelName.new(attribute: value)
      instance.valid?  # Returns true or false
-     ```
+     
 
-=========================================================
+========================================================
+
+Ajax
+
+========================================================
+
+REDIS
+------
+Redis is a fastest in-memory database. Redis is an in-memory database, which means that it runs on RAM.
+
+ There are two types of data reading: one is from RAM, and the second is from disk. so as we know that it runs on RAM, there are advantages and disadvantages. Disk-based databases like PostgreSQL or MongoDB take extra time to read data. In contrast, reading from RAM is very fast. This is why Redis is really fast—it stores data in memory.
+
+The disadvantage is that if your machine fails, your RAM gets cleared, which means it is not a persistent database. "Persistent" means that data is not saved for a long time, unlike disk-based databases. In persistent databases like PostgreSQL or MongoDB, if the machine crashes, the data is still there.
+
+Whenever a client makes a request to Redis, it checks whether the requested item is available in the cache. If it is available in the Redis database, it will be returned directly. If it is not available, Redis will go to the database, fetch the data, store it in Redis, and then return it to the user.
+
+Now, if a second user makes the same request for the same data, Redis retrieves it directly from its cache because the first user already requested it. This is how persistent databases, like MongoDB or PostgreSQL, do not get hit multiple times for the same data.
+
+Technically, Redis is a NoSQL database, but it does not have documents like MongoDB. Instead, it uses something called key-value pairs, which are more similar to a JSON structure. It has keys and values, where values can be strings, hashes, sets, or lists.
+
+This is how Redis works in general. Fast API calls and quick data retrieval can be achieved with Redis. If there is some data that cannot be found, which is called a cache miss, it will go to the database, fetch it, store it in Redis, and give it to the user.
+
+Basic Redis Commands
+
+Install Redis: Use the appropriate method for your operating system (e.g., brew install redis for Mac).
+
+Start Redis Server: Run the command to start the Redis server.
+
+Redis CLI: Use the Redis command line interface for interactions.
+
+Basic Commands:
+Check Connection:
+
+PING → Returns "PONG" if connected.
+Set and Get Values:
+
+SET key value → Stores a key-value pair.
+GET key → Retrieves the value associated with the key.
+Delete a Key:
+
+DEL key → Deletes the specified key.
+View All Keys:
+
+KEYS * → Lists all keys.
+Expire a Key:
+
+EXPIRE key seconds → Sets a time limit after which the key will be deleted.
+Check Time to Live:
+
+TTL key → Returns the remaining time before a key expires.
+TTL stands for Time To Live. It is used in Redis to specify the duration a key should remain in the database before it is automatically deleted.
+
+Add to List:
+
+LPUSH key value → Adds value to the start of the list.
+
+RPUSH key value → Adds value to the end of the list.
+
+Retrieve List:
+
+LRANGE key start stop → Retrieves a range of elements from the list.
+
+Summary
+Redis is primarily used for caching to improve performance.
+It’s easy to use with a simple command structure.
+Best used alongside a persistent database for data safety.
+
+All values in Redis are stored as strings at the core.
+The various data structures (hashes, lists, sets, etc.) organize these strings in ways that make them useful for different applications.
+When you retrieve data from these structures, it may be returned in the format relevant to its type, but the underlying representation remains string-based.
+
+=================================================================================================================
+

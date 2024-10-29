@@ -5,6 +5,8 @@
       <h1>Users</h1>
 
       <%= link_to 'New User', new_user_path, class:"btn btn-primary btn-lg mb-4" %>
+
+   <%= button_to 'Execute Simple job', simple_job_path, method: :post, class: "btn btn-primary btn-lg mb-4" %>
       
       <table class="table table-bordered">
         <thead>
